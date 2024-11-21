@@ -13,7 +13,7 @@ import frc.robot.subsystems.Vision;
 public class TurnToAprilTag extends Command {
   private final DriveSubsystem swerveDrive;
   private final Vision limelight;
-  public static final double kP = 0.05;
+  public static final double kP = 0.01;
   private static final double tolerance = 1.0;
   
   /** Creates a new TurnToAprilTag. */
@@ -52,6 +52,6 @@ public class TurnToAprilTag extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return limelight.isTargetVisible() && Math.abs(limelight.getTargetX()) < tolerance;
+    return false;//limelight.isTargetVisible() && Math.abs(limelight.getTargetX()) < tolerance;
   }
 }
