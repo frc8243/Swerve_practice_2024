@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.MoveToAprilTag;
 import frc.robot.commands.TurnToAprilTag;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Vision;
@@ -75,6 +76,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driverController, Button.kSquare.value).whileTrue(new TurnToAprilTag(m_robotDrive, m_vision));
     m_operatorController.x().whileTrue(new TurnToAprilTag(m_robotDrive, m_vision));
+    new JoystickButton(m_driverController, Button.kTriangle.value).whileTrue(new MoveToAprilTag(m_robotDrive, m_vision));
+
 
     
     new JoystickButton(m_driverController, Button.kR1.value)
