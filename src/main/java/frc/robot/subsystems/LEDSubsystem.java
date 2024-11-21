@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LEDSubsystem extends SubsystemBase {
   private final CANdle candle;
 
-  //private RollerClawIO rollerClawIO;
   private DigitalInput ledSwitch = new DigitalInput(0);
   private static boolean notePresent = false;
 
@@ -31,9 +30,8 @@ public class LEDSubsystem extends SubsystemBase {
     candle.configAllSettings(ConfigAll);
   }
   public void setRed() {
-    //FireAnimation(0.5,0.7,20,0.8,0.5,)
-    //candle.animate(new , 0);
-    //candle.setLEDs(255,0,0);
+    candle.clearAnimation(0);
+    candle.setLEDs(255,0,0);
   }
   public void setBlue(){
     candle.clearAnimation(0);
@@ -42,13 +40,13 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public void setPurple(){
-        candle.clearAnimation(0);
+    candle.clearAnimation(0);
 
     candle.setLEDs(148, 0, 211);
   }
 
   public void setGreen(){
-        candle.clearAnimation(0);
+    candle.clearAnimation(0);
 
     candle.setLEDs(0,255,0);
   }
@@ -61,7 +59,7 @@ public class LEDSubsystem extends SubsystemBase {
 
 
   public void startFireAnimation (){
-   // candle.clearAnimation(0);
+   
     
     FireAnimation fireAnimation = new FireAnimation(
       0.5,//brightness
@@ -99,7 +97,6 @@ public class LEDSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.putNumber("Switch Speed", rollerClawIO.getRollerClawSpeed());
     SmartDashboard.putBoolean("Switch on", notePresent);
     if (ledSwitch.get()==true){
       notePresent = true;
