@@ -54,8 +54,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     table.getEntry("BatteryVoltage").setDouble(RobotController.getBatteryVoltage());
     SmartDashboard.putNumber("Voltage", RobotController.getBatteryVoltage());
-    SmartDashboard.putData("Field",m_field);
-    m_field.setRobotPose(m_robotContainer.m_robotDrive.m_odometry.getPoseMeters());
+    
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

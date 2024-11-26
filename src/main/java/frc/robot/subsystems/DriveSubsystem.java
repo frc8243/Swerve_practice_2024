@@ -44,7 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
       DriveConstants.kBackRightChassisAngularOffset);
 
   // The gyro sensor
-  private final Pigeon2 m_gyro = new Pigeon2(2,"rio");
+  public final Pigeon2 m_gyro = new Pigeon2(2,"rio");
 
   // Slew rate filter variables for controlling lateral acceleration
   private double m_currentRotation = 0.0;
