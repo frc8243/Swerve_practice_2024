@@ -62,11 +62,11 @@ public class Vision extends SubsystemBase {
 
      LimelightHelpers.SetRobotOrientation("limelight", driveSubsystem.m_odometry.getPoseMeters().getRotation().getDegrees() + 180, 0, 0, 0, 0, 0);
      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-     limePose2d =  mt2.pose;
-     SmartDashboard.putNumber("mt2 Fiducial 0", mt2.rawFiducials[0].ambiguity);
-     SmartDashboard.putNumber("mt2 Fiducial 1", mt2.rawFiducials[1].ambiguity);
-     SmartDashboard.putNumber("mt2 CamDistance 0", mt2.rawFiducials[0].distToCamera);     
-     SmartDashboard.putNumber("mt2 CamDistance 1", mt2.rawFiducials[1].distToCamera);
+     //limePose2d =  mt2.pose;
+    // SmartDashboard.putNumber("mt2 Fiducial 0", mt2.rawFiducials[0].ambiguity);
+     //SmartDashboard.putNumber("mt2 Fiducial 1", mt2.rawFiducials[1].ambiguity);
+     //SmartDashboard.putNumber("mt2 CamDistance 0", mt2.rawFiducials[0].distToCamera);     
+     //SmartDashboard.putNumber("mt2 CamDistance 1", mt2.rawFiducials[1].distToCamera);
 
       if(Math.abs(driveSubsystem.m_gyro.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
@@ -75,6 +75,7 @@ public class Vision extends SubsystemBase {
       if(mt2.tagCount == 0)
       {
         doRejectUpdate = true;
+
       }
       if(!doRejectUpdate)
       {
@@ -83,6 +84,6 @@ public class Vision extends SubsystemBase {
         //     mt2.pose,
         //     mt2.timestampSeconds);
       }
-      m_field.setRobotPose(limePose2d);
+      m_field.setRobotPose(mt2.pose);
   }
 }
