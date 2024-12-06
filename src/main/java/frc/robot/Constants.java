@@ -136,7 +136,14 @@ public final class Constants {
         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
 
-  public static final class NeoMotorConstants {
-    public static final double kFreeSpeedRpm = 5676;
+  public static final class NeoMotorConstants{
+    public static final double kFreeSpeedRpm=5676;
+    public static final int kNeoCurrentLimit=60;
+    public static final int kNeo550CurrentLimit=20;
+
+  }
+  public static final class ClawConstants{
+    public static final int kRollerClawMortorID=3;
+    public static final double kRollerClawSpeed=0.5;
   }
 }

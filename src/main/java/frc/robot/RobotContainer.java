@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+import frc.robot.subsystems.RollerClaw;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -43,13 +44,16 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-    CommandXboxController m_operatorController = new CommandXboxController(OIConstants.kDriverControllerPort);
+    CommandXboxController m_operatorController = new CommandXboxController(1); //operator controller on port 1
+public final RollerClaw m_rollerClaw;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
+    
+
+    m_rollerClaw = new RollerClaw();
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -62,6 +66,8 @@ public class RobotContainer {
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
             m_robotDrive));
+
+            configureButtonBindings();
   }
 
   /**
@@ -74,9 +80,13 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+    //m_driverController.a().whileTrue(m_rollerClaw.clawIntakeCom)
     new JoystickButton(m_driverController, Button.kSquare.value).whileTrue(new TurnToAprilTag(m_robotDrive, m_vision));
     m_operatorController.x().whileTrue(new TurnToAprilTag(m_robotDrive, m_vision));
     new JoystickButton(m_driverController, Button.kTriangle.value).whileTrue(new MoveToAprilTag(m_robotDrive, m_vision));
+
+    m_operatorController.y().whileTrue(m_rollerClaw.clawIntakeCommand());
+    m_operatorController.a().whileTrue(m_rollerClaw.clawDumpCommand());
 
 
     
@@ -84,12 +94,12 @@ public class RobotContainer {
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
+
+    new JoystickButton(m_driverController, Button.kCross.value)
+        .whileTrue(new RunCommand(
+            () -> m_rollerClaw.clawIntakeCommand(),
+            m_rollerClaw));
             
-
-
-    
-        
-
     
   }
 
