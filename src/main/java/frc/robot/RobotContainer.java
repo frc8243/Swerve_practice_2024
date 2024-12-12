@@ -14,6 +14,8 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -29,6 +31,9 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import frc.robot.subsystems.RollerClaw;
 
 /*
@@ -38,6 +43,7 @@ import frc.robot.subsystems.RollerClaw;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final SendableChooser<Command> autoChooser;
   // The robot's subsystems
   public final DriveSubsystem m_robotDrive = new DriveSubsystem();
   public final Vision m_vision = new Vision(m_robotDrive);
@@ -50,8 +56,16 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
     
+    // Configure the button bindings
+        // Build an auto chooser. This will use Commands.none() as the default option.
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    // Another option that allows you to specify the default auto by its name
+    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
 
     m_rollerClaw = new RollerClaw();
 
@@ -89,7 +103,11 @@ public class RobotContainer {
     m_operatorController.a().whileTrue(m_rollerClaw.clawDumpCommand());
 
 
-    
+    new JoystickButton(m_driverController, Button.kL1.value)
+        .whileTrue(new RunCommand(
+            () -> m_robotDrive.zeroHeading(),
+              m_robotDrive));
+
     new JoystickButton(m_driverController, Button.kR1.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
@@ -102,6 +120,7 @@ public class RobotContainer {
             
     
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -146,6 +165,7 @@ public class RobotContainer {
     m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    // return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
+    return autoChooser.getSelected();
   }
 }

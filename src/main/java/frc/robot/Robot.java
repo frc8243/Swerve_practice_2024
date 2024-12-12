@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
 import javax.xml.crypto.Data;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -56,7 +57,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Voltage", RobotController.getBatteryVoltage());
     SmartDashboard.putData("Field", m_field);
     m_field.setRobotPose(m_robotContainer.m_robotDrive.m_odometry.getPoseMeters());
-    
+    SmartDashboard.putNumber("Controller Right Joystick X", m_robotContainer.m_driverController.getRightX());
+    SmartDashboard.putNumber("Controller Right Joystick Y", m_robotContainer.m_driverController.getRightY());
+
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

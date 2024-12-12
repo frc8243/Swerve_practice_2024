@@ -52,39 +52,39 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Lime X", getTargetX());
-    SmartDashboard.putNumber("Lime Y", getTargetY());
-    SmartDashboard.putNumber("LimeLight Area", getArea());
-    SmartDashboard.putBoolean("target visible", isTargetVisible());
-    SmartDashboard.putData("Field",m_field);
+  //   SmartDashboard.putNumber("Lime X", getTargetX());
+  //   SmartDashboard.putNumber("Lime Y", getTargetY());
+  //   SmartDashboard.putNumber("LimeLight Area", getArea());
+  //   SmartDashboard.putBoolean("target visible", isTargetVisible());
+  //   SmartDashboard.putData("Field",m_field);
     
     
 
-     LimelightHelpers.SetRobotOrientation("limelight", driveSubsystem.m_odometry.getPoseMeters().getRotation().getDegrees() + 180, 0, 0, 0, 0, 0);
-     LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-     limePose2d =  mt2.pose;
+  //    LimelightHelpers.SetRobotOrientation("limelight", driveSubsystem.m_odometry.getPoseMeters().getRotation().getDegrees() + 180, 0, 0, 0, 0, 0);
+  //    LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+  //    //limePose2d =  mt2.pose;
 
 
-      if(Math.abs(driveSubsystem.m_gyro.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
-      {
-        doRejectUpdate = true;
-      }
-      if(mt2.tagCount == 0)
-      {
-        doRejectUpdate = true;
+  //     if(Math.abs(driveSubsystem.m_gyro.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+  //     {
+  //       doRejectUpdate = true;
+  //     }
+  //     if(mt2.tagCount == 0)
+  //     {
+  //       doRejectUpdate = true;
 
-      }
-      if(!doRejectUpdate)
-      {
-        SmartDashboard.putNumber("mt2 Fiducial 0", mt2.rawFiducials[0].ambiguity);
-        //SmartDashboard.putNumber("mt2 Fiducial 1", mt2.rawFiducials[1].ambiguity);
-        SmartDashboard.putNumber("mt2 CamDistance 0", mt2.rawFiducials[0].distToCamera);     
-        //SmartDashboard.putNumber("mt2 CamDistance 1", mt2.rawFiducials[1].distToCamera);
-        // driveSubsystem.m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
-        // m_poseEstimator.addVisionMeasurement(
-        //     mt2.pose,
-        //     mt2.timestampSeconds);
-      }
-      m_field.setRobotPose(mt2.pose);
+  //     }
+  //     if(!doRejectUpdate)
+  //     {
+  //       SmartDashboard.putNumber("mt2 Fiducial 0", mt2.rawFiducials[0].ambiguity);
+  //       //SmartDashboard.putNumber("mt2 Fiducial 1", mt2.rawFiducials[1].ambiguity);
+  //       SmartDashboard.putNumber("mt2 CamDistance 0", mt2.rawFiducials[0].distToCamera);     
+  //       //SmartDashboard.putNumber("mt2 CamDistance 1", mt2.rawFiducials[1].distToCamera);
+  //       // driveSubsystem.m_odometry.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+  //       // m_poseEstimator.addVisionMeasurement(
+  //       //     mt2.pose,
+  //       //     mt2.timestampSeconds);
+  //     }
+  //     m_field.setRobotPose(mt2.pose);
   }
 }
