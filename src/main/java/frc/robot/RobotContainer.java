@@ -44,8 +44,8 @@ public class RobotContainer {
 
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-    CommandXboxController m_operatorController = new CommandXboxController(1); //operator controller on port 1
-public final RollerClaw m_rollerClaw;
+  CommandXboxController m_operatorController = new CommandXboxController(1); //operator controller on port 1
+  public final RollerClaw m_rollerClaw;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -80,7 +80,7 @@ public final RollerClaw m_rollerClaw;
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    //m_driverController.a().whileTrue(m_rollerClaw.clawIntakeCom)
+    //m_driverController.a().whileTrue(m_rollerClaw.clawIntakeCommand());
     new JoystickButton(m_driverController, Button.kSquare.value).whileTrue(new TurnToAprilTag(m_robotDrive, m_vision));
     m_operatorController.x().whileTrue(new TurnToAprilTag(m_robotDrive, m_vision));
     new JoystickButton(m_driverController, Button.kTriangle.value).whileTrue(new MoveToAprilTag(m_robotDrive, m_vision));
